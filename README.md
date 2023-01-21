@@ -1,2 +1,2 @@
 # pong-project
-Проект
+Проект по Pygame
