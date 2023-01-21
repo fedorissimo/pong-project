@@ -1,4 +1,5 @@
 import pygame
+import PyQt5
 from random import randint, randrange
 
 pygame.init()
