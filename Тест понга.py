@@ -1,7 +1,7 @@
 import pygame
 import PyQt5
 from random import randint, randrange
-
+from pong2 import Ui_MainWindow
 pygame.init()
 all_sprites = pygame.sprite.Group()
 horizontal_borders = pygame.sprite.Group()
