@@ -18,15 +18,15 @@ class Ball(pygame.sprite.Sprite):
         pygame.draw.circle(self.image, pygame.Color('red'),
                            (radius, radius), radius)
         self.rect = pygame.Rect(x, y, 2 * radius, 2 * radius)
-        self.vx = randint(-5, 5)
-        self.vy = randrange(-5, 5)
+        self.x = randint(-5, 5)
+        self.y = randrange(-5, 5)
 
     def update(self):
-        self.rect = self.rect.move(self.vx, self.vy)
+        self.rect = self.rect.move(self.x, self.y)
         if pygame.sprite.spritecollideany(self, horizontal_borders):
-            self.vy = -self.vy
+            self.y = -self.y
         if pygame.sprite.spritecollideany(self, vertical_borders):
-            self.vx = -self.vx
+            self.x = -self.x
 
 
 class Border(pygame.sprite.Sprite):
@@ -68,8 +68,7 @@ Border(5, 5, width - 5, 5)
 Border(5, height - 5, width - 5, height - 5)
 Border(5, 5, 5, height - 5)
 Border(width - 5, 5, width - 5, height - 5)
-for i in range(10):
-    Ball(10, 100, 100)
+Ball(10, 100, 100)
 
 
 fps = 60 # количество кадров в секунду
