@@ -2,6 +2,7 @@ from PyQt5.QtWidgets import QWidget, QApplication, QLineEdit, QPushButton, QPlai
     QMainWindow, QComboBox
 from pong2 import Ui_MainWindow
 import sys
+import os
 
 
 class PongInterface(QMainWindow, Ui_MainWindow):
@@ -20,6 +21,7 @@ class PongInterface(QMainWindow, Ui_MainWindow):
         writer = open('settings.txt', 'w')
         writer.write(self.col1 + '\n' + self.col2 + '\n' + self.fps)
         writer.close()
+        os.startfile(r'mainpong.py')
 
 
 if __name__ == '__main__':
