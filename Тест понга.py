@@ -66,9 +66,8 @@ ballcords = [width // 2, height // 2]
 
 Border(5, 5, width - 5, 5)
 Border(5, height - 5, width - 5, height - 5)
-Border(5, 5, 5, height - 5)
-Border(width - 5, 5, width - 5, height - 5)
-Ball(10, 100, 100)
+
+Ball(10, ballcords[0], ballcords[1])
 
 
 fps = 60 # количество кадров в секунду
@@ -109,8 +108,8 @@ while running: # главный игровой цикл
     all_sprites.update()
     pygame.draw.rect(screen, firstplatformcolor, firstplatformcords)
     pygame.draw.rect(screen, secondplatformcolor, secondplatformcords)
-    pygame.draw.circle(screen, ballcolor, ballcords, 10)
-    Ball(10, ballcords[0], ballcords[1])
+    # pygame.draw.circle(screen, ballcolor, ballcords, 10)
+    # Ball(10, ballcords[0], ballcords[1])
     pygame.display.flip() # смена кадра
     # изменение игрового мира
     # ...
