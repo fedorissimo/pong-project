@@ -14,10 +14,12 @@ class PongInterface(QMainWindow, Ui_MainWindow):
         self.pushButton.clicked.connect(self.start)
 
     def start(self):
-        self.col1 = self.comboBox.text()
-        self.col2 = self.comboBox_2.text()
-        self.fps = int(self.spinBox.text())
-        print('a')
+        self.col1 = self.comboBox.currentText()
+        self.col2 = self.comboBox_2.currentText()
+        self.fps = self.spinBox.text()
+        writer = open('settings.txt', 'w')
+        writer.write(self.col1 + '\n' + self.col2 + '\n' + self.fps)
+        writer.close()
 
 
 if __name__ == '__main__':
