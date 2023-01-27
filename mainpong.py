@@ -1,7 +1,5 @@
 import pygame
-import PyQt5
 from random import randint, randrange
-from pong2 import Ui_MainWindow
 pygame.init()
 all_sprites = pygame.sprite.Group()
 horizontal_borders = pygame.sprite.Group()
@@ -43,6 +41,8 @@ class Border(pygame.sprite.Sprite):
 
 
 size = width, height = 1000, 800
+
+counter_left = counter_right = 0
 
 if type(size[0]) == type(size[1]) == int:
     screen = pygame.display.set_mode(size)
@@ -102,8 +102,15 @@ while running: # главный игровой цикл
         # ...
     # формирование кадра
     # ...
-
     screen.fill(pygame.Color('white'))
+
+    font = pygame.font.Font(None, 70)
+    text_left = font.render(str(counter_left), True, (100, 255, 100))
+    screen.blit(text_left, (height // 3, width // 30))
+
+    text_right = font.render(str(counter_right), True, (100, 255, 100))
+    screen.blit(text_right, (height - height // 3, width // 30))
+
     all_sprites.draw(screen)
     all_sprites.update()
     pygame.draw.rect(screen, firstplatformcolor, firstplatformcords)
