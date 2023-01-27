@@ -25,6 +25,10 @@ class Ball(pygame.sprite.Sprite):
             self.y = -self.y
         if pygame.sprite.spritecollideany(self, vertical_borders):
             self.x = -self.x
+        if self.rect.collidelistall([firstplatformcords, secondplatformcords]):
+            self.y = -self.y
+            self.x = -self.x
+            print('aboba')
 
 
 class Border(pygame.sprite.Sprite):
