@@ -57,11 +57,11 @@ secondplatformcolor = pygame.Color('black')
 ballcolor = pygame.Color('red')
 
 pressed_up1 = pressed_down1 = False
-up1 = pygame.K_i
-down1 = pygame.K_k
+up1 = pygame.K_w
+down1 = pygame.K_s
 
-up2 = pygame.K_w
-down2 = pygame.K_s
+up2 = pygame.K_i
+down2 = pygame.K_k
 
 firstplatformcords = [0, 0, 7, 80]
 secondplatformcords = [width - 7, height - 80, 7, 80]
