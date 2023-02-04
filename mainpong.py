@@ -16,7 +16,7 @@ class Ball(pygame.sprite.Sprite):
         pygame.draw.circle(self.image, pygame.Color('red'),
                            (radius, radius), radius)
         self.rect = pygame.Rect(x, y, 2 * radius, 2 * radius)
-        self.x = randint(-5, 5)
+        self.x = 5
         self.y = randrange(-5, 5)
 
     def update(self):
@@ -56,8 +56,10 @@ firstplatformcolor = pygame.Color('black')
 secondplatformcolor = pygame.Color('black')
 ballcolor = pygame.Color('red')
 
-pressed_up1 = pressed_down1 = False
+up1_pressed = down1_pressed = up2_pressed = down2_pressed = False
+
 up1 = pygame.K_w
+
 down1 = pygame.K_s
 
 up2 = pygame.K_i
@@ -84,24 +86,35 @@ while running: # главный игровой цикл
 
         if event.type == pygame.KEYDOWN:
             if event.key == up1:
-                pressed_up1 = True
-                firstplatformcords[1] -= 30
+                up1_pressed = True
             if event.key == down1:
-                firstplatformcords[1] += 30
-                pressed_down1 = True
+                down1_pressed = True
 
             if event.key == up2:
-                pressed_up1 = True
-                secondplatformcords[1] -= 30
+                up2_pressed = True
             if event.key == down2:
-                secondplatformcords[1] += 30
-                pressed_down1 = True
+                down2_pressed = True
 
         if event.type == pygame.KEYUP:
             if event.key == up1:
-                pressed_up1 = False
+                up1_pressed = False
             if event.key == down1:
-                pressed_down1 = False
+                down1_pressed = False
+
+            if event.key == up2:
+                up2_pressed = False
+            if event.key == down2:
+                down2_pressed = False
+
+    if up1_pressed:
+        firstplatformcords[1] -= 10
+    elif down1_pressed:
+        firstplatformcords[1] += 10
+
+    if up2_pressed:
+        secondplatformcords[1] -= 10
+    elif down2_pressed:
+        secondplatformcords[1] += 10
         # обработка остальных событий
         # ...
     # формирование кадра
