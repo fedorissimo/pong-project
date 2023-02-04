@@ -126,7 +126,7 @@ while running: # главный игровой цикл
     screen.blit(text_left, (height // 3, width // 30))
 
     text_right = font.render(str(counter_right), True, (100, 255, 100))
-    screen.blit(text_right, (height - height // 3, width // 30))
+    screen.blit(text_right, (height - height // 3 + 140, width // 30))
 
     all_sprites.draw(screen)
     all_sprites.update()
