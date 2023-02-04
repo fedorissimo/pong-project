@@ -1,2 +1,2 @@
 # pong-project
-Проект по Pygame
+Классический Pong на Pygame
