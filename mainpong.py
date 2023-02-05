@@ -19,8 +19,8 @@ class Ball(pygame.sprite.Sprite):
         pygame.draw.circle(self.image, pygame.Color('red'),
                            (radius, radius), radius)
         self.rect = pygame.Rect(x, y, 2 * radius, 2 * radius)
-        self.x = -5
-        self.y = randrange(-5, 5)
+        self.x = -2
+        self.y = randrange(-3, -1)
 
     def update(self):
         self.rect = self.rect.move(self.x, self.y)
@@ -30,14 +30,13 @@ class Ball(pygame.sprite.Sprite):
         if pygame.sprite.spritecollideany(self, vertical_borders):
             self.x = -self.x
         if self.rect.collidelistall([firstplatformcords, secondplatformcords]):
-            self.y = -self.y
             self.x = -self.x
             print('aboba')
         if self.rect.collidelistall([[0, 0, 1, width]]):
             print('works')
             self.counter_left += 1
-        elif self.rect.collidelistall([[height - 1, width - 1, height, width]]):
-            self.counter_left += 1
+        elif self.rect.collidelistall([[0, width - 1, height, width]]):
+            self.counter_right += 1
 
     def count_left(self):
         return self.counter_left
@@ -89,7 +88,7 @@ Border(5, height - 5, width - 5, height - 5)
 
 ball = Ball(10, ballcords[0], ballcords[1], counter_left, counter_right)
 
-fps = 60  # количество кадров в секунду
+fps = 144  # количество кадров в секунду
 clock = pygame.time.Clock()
 running = True
 while running:  # главный игровой цикл
@@ -120,14 +119,14 @@ while running:  # главный игровой цикл
                 down2_pressed = False
 
     if up1_pressed:
-        firstplatformcords[1] -= 10
+        firstplatformcords[1] -= 5
     elif down1_pressed:
-        firstplatformcords[1] += 10
+        firstplatformcords[1] += 5
 
     if up2_pressed:
-        secondplatformcords[1] -= 10
+        secondplatformcords[1] -= 5
     elif down2_pressed:
-        secondplatformcords[1] += 10
+        secondplatformcords[1] += 5
         # обработка остальных событий
         # ...
     counter_left = ball.count_left()
