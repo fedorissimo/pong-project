@@ -1,5 +1,6 @@
 import pygame
 from random import randint, randrange
+
 pygame.init()
 all_sprites = pygame.sprite.Group()
 horizontal_borders = pygame.sprite.Group()
@@ -7,8 +8,10 @@ vertical_borders = pygame.sprite.Group()
 
 
 class Ball(pygame.sprite.Sprite):
-    def __init__(self, radius, x, y):
+    def __init__(self, radius, x, y, counter_l, counter_r):
         super().__init__(all_sprites)
+        self.counter_left = counter_l
+        self.counter_right = counter_r
         self.radius = radius
         self.radius = radius
         self.image = pygame.Surface((2 * radius, 2 * radius),
@@ -16,11 +19,12 @@ class Ball(pygame.sprite.Sprite):
         pygame.draw.circle(self.image, pygame.Color('red'),
                            (radius, radius), radius)
         self.rect = pygame.Rect(x, y, 2 * radius, 2 * radius)
-        self.x = 5
+        self.x = -5
         self.y = randrange(-5, 5)
 
     def update(self):
         self.rect = self.rect.move(self.x, self.y)
+        # print(self.rect)
         if pygame.sprite.spritecollideany(self, horizontal_borders):
             self.y = -self.y
         if pygame.sprite.spritecollideany(self, vertical_borders):
@@ -29,6 +33,17 @@ class Ball(pygame.sprite.Sprite):
             self.y = -self.y
             self.x = -self.x
             print('aboba')
+        if self.rect.collidelistall([[0, 0, 1, width]]):
+            print('works')
+            self.counter_left += 1
+        elif self.rect.collidelistall([[height - 1, width - 1, height, width]]):
+            self.counter_left += 1
+
+    def count_left(self):
+        return self.counter_left
+
+    def count_right(self):
+        return self.counter_right
 
 
 class Border(pygame.sprite.Sprite):
@@ -69,17 +84,15 @@ firstplatformcords = [0, 0, 7, 80]
 secondplatformcords = [width - 7, height - 80, 7, 80]
 ballcords = [width // 2, height // 2]
 
-
 Border(5, 5, width - 5, 5)
 Border(5, height - 5, width - 5, height - 5)
 
-Ball(10, ballcords[0], ballcords[1])
+ball = Ball(10, ballcords[0], ballcords[1], counter_left, counter_right)
 
-
-fps = 60 # количество кадров в секунду
+fps = 60  # количество кадров в секунду
 clock = pygame.time.Clock()
 running = True
-while running: # главный игровой цикл
+while running:  # главный игровой цикл
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
@@ -117,6 +130,9 @@ while running: # главный игровой цикл
         secondplatformcords[1] += 10
         # обработка остальных событий
         # ...
+    counter_left = ball.count_left()
+    counter_right = ball.count_right()
+    # print(counter_left)
     # формирование кадра
     # ...
     screen.fill(pygame.Color('white'))
@@ -134,7 +150,7 @@ while running: # главный игровой цикл
     pygame.draw.rect(screen, secondplatformcolor, secondplatformcords)
     # pygame.draw.circle(screen, ballcolor, ballcords, 10)
     # Ball(10, ballcords[0], ballcords[1])
-    pygame.display.flip() # смена кадра
+    pygame.display.flip()  # смена кадра
     # изменение игрового мира
     # ...
     # временная задержка
