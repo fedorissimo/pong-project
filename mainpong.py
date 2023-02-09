@@ -117,15 +117,14 @@ while running:  # главный игровой цикл
                 up2_pressed = False
             if event.key == down2:
                 down2_pressed = False
-
-    if up1_pressed:
+    if up1_pressed and firstplatformcords[1] > 0:
         firstplatformcords[1] -= 5
-    elif down1_pressed:
+    elif down1_pressed and firstplatformcords[1] < width - 280:
         firstplatformcords[1] += 5
 
-    if up2_pressed:
+    if up2_pressed and secondplatformcords[1] > 0:
         secondplatformcords[1] -= 5
-    elif down2_pressed:
+    elif down2_pressed and secondplatformcords[1] < width - 280:
         secondplatformcords[1] += 5
         # обработка остальных событий
         # ...
