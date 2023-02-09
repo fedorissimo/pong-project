@@ -31,11 +31,14 @@ class Ball(pygame.sprite.Sprite):
             self.x = -self.x
         if self.rect.collidelistall([firstplatformcords, secondplatformcords]):
             self.x = -self.x
-            print('aboba')
         if self.rect.collidelistall([[0, 0, 1, width]]):
-            print('works')
+            self.rect.move_ip((width // 2), width // 2)
+
             self.counter_left += 1
-        elif self.rect.collidelistall([[0, width - 1, height, width]]):
+        elif self.rect.collidelistall([[width, 0, height - 1, width]]):
+
+            # self.rect.move_ip(0 + (width // 2), 0 + width // 2)
+            self.x -= 1
             self.counter_right += 1
 
     def count_left(self):
