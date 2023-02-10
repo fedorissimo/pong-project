@@ -32,7 +32,7 @@ class Ball(pygame.sprite.Sprite):
         if self.rect.collidelistall([firstplatformcords, secondplatformcords]):
             self.x = -self.x
         if self.rect.collidelistall([[0, 0, 1, width]]):
-            self.rect.move_ip((width // 2), width // 2)
+            self.rect.move_ip(- (width // 2), - (height // 2))
 
             self.counter_left += 1
         elif self.rect.collidelistall([[width, 0, height - 1, width]]):
@@ -72,6 +72,31 @@ else:
 firstplatformcolor = pygame.Color('black')
 secondplatformcolor = pygame.Color('black')
 ballcolor = pygame.Color('red')
+
+fps = 144  # количество кадров в секунду
+clock = pygame.time.Clock()
+running = True
+while running:  # главный игровой цикл
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+        screen.fill(pygame.Color('black'))
+        font = pygame.font.Font(None, 70)
+        text_menu = font.render('PONG', True, (100, 255, 100))
+        screen.blit(text_menu, (width // 2 - text_menu.get_width() // 2, height // 20))
+        text_x = width // 2 - text_menu.get_width() // 2
+        text_y = height // 2 - text_menu.get_height() // 2
+        text_w = text_menu.get_width()
+        text_h = text_menu.get_height()
+        pygame.draw.rect(screen, (0, 255, 0), (text_x - 10,
+                                               text_y - 10,
+                                               text_w + 20, text_h + 20), 1)
+
+        pygame.display.flip()  # смена кадра
+        # изменение игрового мира
+        # ...
+        # временная задержка
+        clock.tick(fps)
 
 up1_pressed = down1_pressed = up2_pressed = down2_pressed = False
 
