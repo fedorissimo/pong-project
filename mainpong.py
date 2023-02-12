@@ -85,7 +85,7 @@ while running:  # главный игровой цикл
         text_menu = font.render('PONG', True, (100, 255, 100))
 
         text_x = width // 2 - text_menu.get_width() // 2
-        text_y = height // 20
+        text_y = height // 3
         text_w = text_menu.get_width()
         text_h = text_menu.get_height()
         screen.blit(text_menu, (text_x, text_y))
@@ -93,6 +93,26 @@ while running:  # главный игровой цикл
                                                text_y - 10,
                                                text_w + 20, text_h + 20), 1)
 
+        pygame.draw.rect(screen, pygame.Color('blue'), (100, 400, 50, 50))
+        pygame.draw.rect(screen, pygame.Color('red'), (100, 460, 50, 50))
+        pygame.draw.rect(screen, pygame.Color('green'), (160, 400, 50, 50))
+        pygame.draw.rect(screen, pygame.Color('yellow'), (160, 460, 50, 50))
+
+        pygame.draw.rect(screen, pygame.Color('green'), (800, 400, 50, 50))
+        pygame.draw.rect(screen, pygame.Color('yellow'), (800, 460, 50, 50))
+        pygame.draw.rect(screen, pygame.Color('blue'), (860, 400, 50, 50))
+        pygame.draw.rect(screen, pygame.Color('red'), (860, 460, 50, 50))
+
+        text_play = font.render('PLAY', True, (100, 255, 100))
+
+        text_x = width // 2 - text_play.get_width() // 2
+        text_y = 430
+        text_w = text_play.get_width()
+        text_h = text_play.get_height()
+        screen.blit(text_play, (text_x, text_y))
+        pygame.draw.rect(screen, (0, 255, 0), (text_x - 10,
+                                               text_y - 10,
+                                               text_w + 20, text_h + 20), 1)
         pygame.display.flip()  # смена кадра
         # изменение игрового мира
         # ...
