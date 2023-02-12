@@ -87,7 +87,7 @@ while running:  # главный игровой цикл
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-        if pygame.mouse.get_pressed():
+        if pygame.mouse.get_pressed()[0]:
             if text_w_play + text_x_play > pygame.mouse.get_pos()[0] > text_x_play and text_h_play + \
                     text_y_play > pygame.mouse.get_pos()[1] > text_y_play:
                 running = False
