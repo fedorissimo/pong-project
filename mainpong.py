@@ -72,22 +72,33 @@ else:
 firstplatformcolor = pygame.Color('black')
 secondplatformcolor = pygame.Color('black')
 ballcolor = pygame.Color('red')
+font = pygame.font.Font(None, 70)
+text_play = font.render('PLAY', True, (100, 255, 100))
 
+text_x_play = width // 2 - text_play.get_width() // 2
+text_y_play = 430
+text_w_play = text_play.get_width()
+text_h_play = text_play.get_height()
 fps = 144  # количество кадров в секунду
 clock = pygame.time.Clock()
 running = True
+
 while running:  # главный игровой цикл
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+        if pygame.mouse.get_pressed():
+            if text_w_play + text_x_play > pygame.mouse.get_pos()[0] > text_x_play and text_h_play + \
+                    text_y_play > pygame.mouse.get_pos()[1] > text_y_play:
+                running = False
         screen.fill(pygame.Color('black'))
-        font = pygame.font.Font(None, 70)
         text_menu = font.render('PONG', True, (100, 255, 100))
 
         text_x = width // 2 - text_menu.get_width() // 2
         text_y = height // 3
         text_w = text_menu.get_width()
         text_h = text_menu.get_height()
+        print(text_h)
         screen.blit(text_menu, (text_x, text_y))
         pygame.draw.rect(screen, (0, 255, 0), (text_x - 10,
                                                text_y - 10,
@@ -103,16 +114,10 @@ while running:  # главный игровой цикл
         pygame.draw.rect(screen, pygame.Color('blue'), (860, 400, 50, 50))
         pygame.draw.rect(screen, pygame.Color('red'), (860, 460, 50, 50))
 
-        text_play = font.render('PLAY', True, (100, 255, 100))
-
-        text_x = width // 2 - text_play.get_width() // 2
-        text_y = 430
-        text_w = text_play.get_width()
-        text_h = text_play.get_height()
-        screen.blit(text_play, (text_x, text_y))
-        pygame.draw.rect(screen, (0, 255, 0), (text_x - 10,
-                                               text_y - 10,
-                                               text_w + 20, text_h + 20), 1)
+        screen.blit(text_play, (text_x_play, text_y_play))
+        pygame.draw.rect(screen, (0, 255, 0), (text_x_play - 10,
+                                               text_y_play - 10,
+                                               text_w_play + 20, text_h_play + 20), 1)
         pygame.display.flip()  # смена кадра
         # изменение игрового мира
         # ...
