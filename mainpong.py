@@ -83,11 +83,12 @@ while running:  # главный игровой цикл
         screen.fill(pygame.Color('black'))
         font = pygame.font.Font(None, 70)
         text_menu = font.render('PONG', True, (100, 255, 100))
-        screen.blit(text_menu, (width // 2 - text_menu.get_width() // 2, height // 20))
+
         text_x = width // 2 - text_menu.get_width() // 2
-        text_y = height // 2 - text_menu.get_height() // 2
+        text_y = height // 20
         text_w = text_menu.get_width()
         text_h = text_menu.get_height()
+        screen.blit(text_menu, (text_x, text_y))
         pygame.draw.rect(screen, (0, 255, 0), (text_x - 10,
                                                text_y - 10,
                                                text_w + 20, text_h + 20), 1)
