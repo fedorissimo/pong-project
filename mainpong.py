@@ -75,6 +75,15 @@ ballcolor = pygame.Color('red')
 font = pygame.font.Font(None, 70)
 text_play = font.render('PLAY', True, (100, 255, 100))
 
+first_blue = pygame.Rect((100, 400, 50, 50))
+first_red = pygame.Rect((100, 460, 50, 50))
+first_green = pygame.Rect(160, 400, 50, 50)
+first_yellow = pygame.Rect(160, 460, 50, 50)
+second_blue = pygame.Rect(860, 400, 50, 50)
+second_red = pygame.Rect(860, 460, 50, 50)
+second_green = pygame.Rect(800, 400, 50, 50)
+second_yellow = pygame.Rect(800, 460, 50, 50)
+
 text_x_play = width // 2 - text_play.get_width() // 2
 text_y_play = 430
 text_w_play = text_play.get_width()
@@ -91,6 +100,24 @@ while running:  # главный игровой цикл
             if text_w_play + text_x_play > pygame.mouse.get_pos()[0] > text_x_play and text_h_play + \
                     text_y_play > pygame.mouse.get_pos()[1] > text_y_play:
                 running = False
+            if first_blue.collidepoint(pygame.mouse.get_pos()):
+                firstplatformcolor = pygame.Color('blue')
+            elif first_red.collidepoint(pygame.mouse.get_pos()):
+                firstplatformcolor = pygame.Color('red')
+            elif first_green.collidepoint(pygame.mouse.get_pos()):
+                firstplatformcolor = pygame.Color('green')
+            elif first_yellow.collidepoint(pygame.mouse.get_pos()):
+                firstplatformcolor = pygame.Color('yellow')
+
+            elif second_yellow.collidepoint(pygame.mouse.get_pos()):
+                secondplatformcolor = pygame.Color('yellow')
+            elif second_green.collidepoint(pygame.mouse.get_pos()):
+                secondplatformcolor = pygame.Color('green')
+            elif second_red.collidepoint(pygame.mouse.get_pos()):
+                secondplatformcolor = pygame.Color('red')
+            elif second_blue.collidepoint(pygame.mouse.get_pos()):
+                secondplatformcolor = pygame.Color('blue')
+
         screen.fill(pygame.Color('black'))
         text_menu = font.render('PONG', True, (100, 255, 100))
 
