@@ -60,13 +60,9 @@ class Border(pygame.sprite.Sprite):
 
 
 size = width, height = 1000, 800
+screen = pygame.display.set_mode(size)
 
 counter_left = counter_right = 0
-
-if type(size[0]) == type(size[1]) == int:
-    screen = pygame.display.set_mode(size)
-else:
-    print('Неправильный формат ввода')
 firstplatformcolor = pygame.Color('black')
 secondplatformcolor = pygame.Color('black')
 ballcolor = pygame.Color('red')
@@ -92,69 +88,74 @@ fps = 144  # количество кадров в секунду
 clock = pygame.time.Clock()
 running = True
 
-while running:  # главный игровой цикл
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
-        if pygame.mouse.get_pressed()[0]:
-            if text_w_play + text_x_play > pygame.mouse.get_pos()[0] > text_x_play and text_h_play + \
-                    text_y_play > pygame.mouse.get_pos()[1] > text_y_play:
+
+def main_menu():
+    global running, firstplatformcolor, secondplatformcolor
+    while running:  # главный игровой цикл
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
                 running = False
-            if first_blue.collidepoint(pygame.mouse.get_pos()):
-                firstplatformcolor = pygame.Color('blue')
-            elif first_red.collidepoint(pygame.mouse.get_pos()):
-                firstplatformcolor = pygame.Color('red')
-            elif first_green.collidepoint(pygame.mouse.get_pos()):
-                firstplatformcolor = pygame.Color('green')
-            elif first_yellow.collidepoint(pygame.mouse.get_pos()):
-                firstplatformcolor = pygame.Color('yellow')
+            if pygame.mouse.get_pressed()[0]:
+                if text_w_play + text_x_play > pygame.mouse.get_pos()[0] > text_x_play and text_h_play + \
+                        text_y_play > pygame.mouse.get_pos()[1] > text_y_play:
+                    running = False
+                if first_blue.collidepoint(pygame.mouse.get_pos()):
+                    firstplatformcolor = pygame.Color('blue')
+                elif first_red.collidepoint(pygame.mouse.get_pos()):
+                    firstplatformcolor = pygame.Color('red')
+                elif first_green.collidepoint(pygame.mouse.get_pos()):
+                    firstplatformcolor = pygame.Color('green')
+                elif first_yellow.collidepoint(pygame.mouse.get_pos()):
+                    firstplatformcolor = pygame.Color('yellow')
 
-            elif second_yellow.collidepoint(pygame.mouse.get_pos()):
-                secondplatformcolor = pygame.Color('yellow')
-            elif second_green.collidepoint(pygame.mouse.get_pos()):
-                secondplatformcolor = pygame.Color('green')
-            elif second_red.collidepoint(pygame.mouse.get_pos()):
-                secondplatformcolor = pygame.Color('red')
-            elif second_blue.collidepoint(pygame.mouse.get_pos()):
-                secondplatformcolor = pygame.Color('blue')
+                elif second_yellow.collidepoint(pygame.mouse.get_pos()):
+                    secondplatformcolor = pygame.Color('yellow')
+                elif second_green.collidepoint(pygame.mouse.get_pos()):
+                    secondplatformcolor = pygame.Color('green')
+                elif second_red.collidepoint(pygame.mouse.get_pos()):
+                    secondplatformcolor = pygame.Color('red')
+                elif second_blue.collidepoint(pygame.mouse.get_pos()):
+                    secondplatformcolor = pygame.Color('blue')
 
-        screen.fill(pygame.Color('black'))
+            screen.fill(pygame.Color('black'))
 
-        text_x = width // 2 - text_menu.get_width() // 2
-        text_y = height // 3
-        text_w = text_menu.get_width()
-        text_h = text_menu.get_height()
-        screen.blit(text_menu, (text_x, text_y))
-        pygame.draw.rect(screen, (255, 0, 0), (text_x - 10,
-                                               text_y - 10,
-                                               text_w + 20, text_h + 20), 1)
+            text_x = width // 2 - text_menu.get_width() // 2
+            text_y = height // 3
+            text_w = text_menu.get_width()
+            text_h = text_menu.get_height()
+            screen.blit(text_menu, (text_x, text_y))
+            pygame.draw.rect(screen, (255, 0, 0), (text_x - 10,
+                                                   text_y - 10,
+                                                   text_w + 20, text_h + 20), 1)
 
-        pygame.draw.rect(screen, pygame.Color('blue'), (100, 400, 50, 50))
-        pygame.draw.rect(screen, pygame.Color('red'), (100, 460, 50, 50))
-        pygame.draw.rect(screen, pygame.Color('green'), (160, 400, 50, 50))
-        pygame.draw.rect(screen, pygame.Color('yellow'), (160, 460, 50, 50))
+            pygame.draw.rect(screen, pygame.Color('blue'), (100, 400, 50, 50))
+            pygame.draw.rect(screen, pygame.Color('red'), (100, 460, 50, 50))
+            pygame.draw.rect(screen, pygame.Color('green'), (160, 400, 50, 50))
+            pygame.draw.rect(screen, pygame.Color('yellow'), (160, 460, 50, 50))
 
-        pygame.draw.rect(screen, pygame.Color('green'), (800, 400, 50, 50))
-        pygame.draw.rect(screen, pygame.Color('yellow'), (800, 460, 50, 50))
-        pygame.draw.rect(screen, pygame.Color('blue'), (860, 400, 50, 50))
-        pygame.draw.rect(screen, pygame.Color('red'), (860, 460, 50, 50))
+            pygame.draw.rect(screen, pygame.Color('green'), (800, 400, 50, 50))
+            pygame.draw.rect(screen, pygame.Color('yellow'), (800, 460, 50, 50))
+            pygame.draw.rect(screen, pygame.Color('blue'), (860, 400, 50, 50))
+            pygame.draw.rect(screen, pygame.Color('red'), (860, 460, 50, 50))
 
-        screen.blit(text_play, (text_x_play, text_y_play))
-        pygame.draw.rect(screen, (0, 255, 0), (text_x_play - 10,
-                                               text_y_play - 10,
-                                               text_w_play + 20, text_h_play + 20), 1)
-        pygame.display.flip()  # смена кадра
-        # изменение игрового мира
-        # ...
-        # временная задержка
-        clock.tick(fps)
+            screen.blit(text_play, (text_x_play, text_y_play))
+            pygame.draw.rect(screen, (0, 255, 0), (text_x_play - 10,
+                                                   text_y_play - 10,
+                                                   text_w_play + 20, text_h_play + 20), 1)
+            pygame.display.flip()  # смена кадра
+            # изменение игрового мира
+            # ...
+            # временная задержка
+            clock.tick(fps)
+
+
+main_menu()
+
 
 up1_pressed = down1_pressed = up2_pressed = down2_pressed = False
 
 up1 = pygame.K_w
-
 down1 = pygame.K_s
-
 up2 = pygame.K_i
 down2 = pygame.K_k
 
@@ -167,67 +168,73 @@ Border(5, height - 5, width - 5, height - 5)
 
 ball = Ball(10, ballcords[0], ballcords[1], counter_left, counter_right)
 
-clock = pygame.time.Clock()
 running = True
-while running:  # главный игровой цикл
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
 
-        if event.type == pygame.KEYDOWN:
-            if event.key == up1:
-                up1_pressed = True
-            if event.key == down1:
-                down1_pressed = True
 
-            if event.key == up2:
-                up2_pressed = True
-            if event.key == down2:
-                down2_pressed = True
+def main_game():
+    global running, up1_pressed, up2_pressed, down1_pressed, down2_pressed
+    while running:  # главный игровой цикл
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
 
-        if event.type == pygame.KEYUP:
-            if event.key == up1:
-                up1_pressed = False
-            if event.key == down1:
-                down1_pressed = False
+            if event.type == pygame.KEYDOWN:
+                if event.key == up1:
+                    up1_pressed = True
+                if event.key == down1:
+                    down1_pressed = True
 
-            if event.key == up2:
-                up2_pressed = False
-            if event.key == down2:
-                down2_pressed = False
-    if up1_pressed and firstplatformcords[1] > 0:
-        firstplatformcords[1] -= 5
-    elif down1_pressed and firstplatformcords[1] < width - 280:
-        firstplatformcords[1] += 5
+                if event.key == up2:
+                    up2_pressed = True
+                if event.key == down2:
+                    down2_pressed = True
 
-    if up2_pressed and secondplatformcords[1] > 0:
-        secondplatformcords[1] -= 5
-    elif down2_pressed and secondplatformcords[1] < width - 280:
-        secondplatformcords[1] += 5
-        # обработка остальных событий
+            if event.type == pygame.KEYUP:
+                if event.key == up1:
+                    up1_pressed = False
+                if event.key == down1:
+                    down1_pressed = False
+
+                if event.key == up2:
+                    up2_pressed = False
+                if event.key == down2:
+                    down2_pressed = False
+        if up1_pressed and firstplatformcords[1] > 0:
+            firstplatformcords[1] -= 5
+        elif down1_pressed and firstplatformcords[1] < width - 280:
+            firstplatformcords[1] += 5
+
+        if up2_pressed and secondplatformcords[1] > 0:
+            secondplatformcords[1] -= 5
+        elif down2_pressed and secondplatformcords[1] < width - 280:
+            secondplatformcords[1] += 5
+            # обработка остальных событий
+            # ...
+        counter_left = ball.count_left()
+        counter_right = ball.count_right()
+        # print(counter_left)
+        # формирование кадра
         # ...
-    counter_left = ball.count_left()
-    counter_right = ball.count_right()
-    # print(counter_left)
-    # формирование кадра
-    # ...
-    screen.fill(pygame.Color('white'))
+        screen.fill(pygame.Color('white'))
 
-    font = pygame.font.Font(None, 70)
-    text_left = font.render(str(counter_left), True, (100, 255, 100))
-    screen.blit(text_left, (height // 3, width // 30))
+        font = pygame.font.Font(None, 70)
+        text_left = font.render(str(counter_left), True, (100, 255, 100))
+        screen.blit(text_left, (height // 3, width // 30))
 
-    text_right = font.render(str(counter_right), True, (100, 255, 100))
-    screen.blit(text_right, (height - height // 3 + 140, width // 30))
+        text_right = font.render(str(counter_right), True, (100, 255, 100))
+        screen.blit(text_right, (height - height // 3 + 140, width // 30))
 
-    all_sprites.draw(screen)
-    all_sprites.update()
-    pygame.draw.rect(screen, firstplatformcolor, firstplatformcords)
-    pygame.draw.rect(screen, secondplatformcolor, secondplatformcords)
-    # pygame.draw.circle(screen, ballcolor, ballcords, 10)
-    # Ball(10, ballcords[0], ballcords[1])
-    pygame.display.flip()  # смена кадра
-    # изменение игрового мира
-    # ...
-    # временная задержка
-    clock.tick(fps)
+        all_sprites.draw(screen)
+        all_sprites.update()
+        pygame.draw.rect(screen, firstplatformcolor, firstplatformcords)
+        pygame.draw.rect(screen, secondplatformcolor, secondplatformcords)
+        # pygame.draw.circle(screen, ballcolor, ballcords, 10)
+        # Ball(10, ballcords[0], ballcords[1])
+        pygame.display.flip()  # смена кадра
+        # изменение игрового мира
+        # ...
+        # временная задержка
+        clock.tick(fps)
+
+
+main_game()
