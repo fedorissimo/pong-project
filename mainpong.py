@@ -8,8 +8,9 @@ vertical_borders = pygame.sprite.Group()
 
 
 class Ball(pygame.sprite.Sprite):
-    def __init__(self, radius, x, y, counter_l, counter_r):
+    def __init__(self, radius, x, y, counter_l, counter_r, fpscount):
         super().__init__(all_sprites)
+        self.fps = fpscount
         self.counter_left = counter_l
         self.counter_right = counter_r
         self.radius = radius
@@ -19,8 +20,13 @@ class Ball(pygame.sprite.Sprite):
         pygame.draw.circle(self.image, pygame.Color('red'),
                            (radius, radius), radius)
         self.rect = pygame.Rect(x, y, 2 * radius, 2 * radius)
-        self.x = -2
+        if self.fps == 144:
+            self.x = -2
+        else:
+            self.x = -5
         self.y = randrange(-3, -1)
+        if self.fps == 60:
+            self.y *= 2
 
     def update(self):
         self.rect = self.rect.move(self.x, self.y)
@@ -66,10 +72,21 @@ counter_left = counter_right = 0
 firstplatformcolor = pygame.Color('black')
 secondplatformcolor = pygame.Color('black')
 ballcolor = pygame.Color('red')
-font = pygame.font.Font(None, 70)
-text_play = font.render('PLAY', True, (100, 255, 100))
+font_menu = pygame.font.Font(None, 70)
+text_play = font_menu.render('PLAY', True, (100, 255, 100))
 pongfont = pygame.font.Font(None, 100)
 text_menu = pongfont.render('PONG', True, (255, 0, 0))
+text_60 = font_menu.render('60 FPS', True, (0, 255, 0))
+text_144 = font_menu.render('144 FPS', True, (0, 255, 0))
+
+text_x = width // 2 - text_menu.get_width() // 2
+text_y = height // 3
+text_w = text_menu.get_width()
+text_h = text_menu.get_height()
+text_x_play = width // 2 - text_play.get_width() // 2
+text_y_play = 430
+text_w_play = text_play.get_width()
+text_h_play = text_play.get_height()
 
 first_blue = pygame.Rect((100, 400, 50, 50))
 first_red = pygame.Rect((100, 460, 50, 50))
@@ -79,18 +96,17 @@ second_blue = pygame.Rect(860, 400, 50, 50)
 second_red = pygame.Rect(860, 460, 50, 50)
 second_green = pygame.Rect(800, 400, 50, 50)
 second_yellow = pygame.Rect(800, 460, 50, 50)
+fps_60 = pygame.Rect(text_x + 22, text_y + 250, 50, 50)
+fps_144 = pygame.Rect(text_x + 12, text_y + 330, 50, 50)
 
-text_x_play = width // 2 - text_play.get_width() // 2
-text_y_play = 430
-text_w_play = text_play.get_width()
-text_h_play = text_play.get_height()
-fps = 144  # количество кадров в секунду
+
+fps = 60  # количество кадров в секунду
 clock = pygame.time.Clock()
 running = True
 
 
 def main_menu():
-    global running, firstplatformcolor, secondplatformcolor
+    global running, firstplatformcolor, secondplatformcolor, fps
     while running:  # главный игровой цикл
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -116,13 +132,13 @@ def main_menu():
                     secondplatformcolor = pygame.Color('red')
                 elif second_blue.collidepoint(pygame.mouse.get_pos()):
                     secondplatformcolor = pygame.Color('blue')
+                elif fps_60.collidepoint(pygame.mouse.get_pos()):
+                    fps = 60
+                elif fps_144.collidepoint(pygame.mouse.get_pos()):
+                    fps = 144
 
             screen.fill(pygame.Color('black'))
 
-            text_x = width // 2 - text_menu.get_width() // 2
-            text_y = height // 3
-            text_w = text_menu.get_width()
-            text_h = text_menu.get_height()
             screen.blit(text_menu, (text_x, text_y))
             pygame.draw.rect(screen, (255, 0, 0), (text_x - 10,
                                                    text_y - 10,
@@ -138,6 +154,8 @@ def main_menu():
             pygame.draw.rect(screen, pygame.Color('blue'), (860, 400, 50, 50))
             pygame.draw.rect(screen, pygame.Color('red'), (860, 460, 50, 50))
 
+            screen.blit(text_60, (text_x + 22, text_y + 250))
+            screen.blit(text_144, (text_x + 12, text_y + 330))
             screen.blit(text_play, (text_x_play, text_y_play))
             pygame.draw.rect(screen, (0, 255, 0), (text_x_play - 10,
                                                    text_y_play - 10,
@@ -166,7 +184,7 @@ ballcords = [width // 2, height // 2]
 Border(5, 5, width - 5, 5)
 Border(5, height - 5, width - 5, height - 5)
 
-ball = Ball(10, ballcords[0], ballcords[1], counter_left, counter_right)
+ball = Ball(10, ballcords[0], ballcords[1], counter_left, counter_right, fps)
 
 running = True
 
@@ -200,14 +218,26 @@ def main_game():
                 if event.key == down2:
                     down2_pressed = False
         if up1_pressed and firstplatformcords[1] > 0:
-            firstplatformcords[1] -= 5
+            if fps == 144:
+                firstplatformcords[1] -= 5
+            else:
+                firstplatformcords[1] -= 12
         elif down1_pressed and firstplatformcords[1] < width - 280:
-            firstplatformcords[1] += 5
+            if fps == 144:
+                firstplatformcords[1] += 5
+            else:
+                firstplatformcords[1] += 12
 
         if up2_pressed and secondplatformcords[1] > 0:
-            secondplatformcords[1] -= 5
+            if fps == 144:
+                secondplatformcords[1] -= 5
+            else:
+                secondplatformcords[1] -= 12
         elif down2_pressed and secondplatformcords[1] < width - 280:
-            secondplatformcords[1] += 5
+            if fps == 144:
+                secondplatformcords[1] += 5
+            else:
+                secondplatformcords[1] += 12
             # обработка остальных событий
             # ...
         counter_left = ball.count_left()
