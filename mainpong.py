@@ -32,13 +32,11 @@ class Ball(pygame.sprite.Sprite):
         if self.rect.collidelistall([firstplatformcords, secondplatformcords]):
             self.x = -self.x
         if self.rect.collidelistall([[0, 0, 1, width]]):
-            self.rect.move_ip(- (width // 2), - (height // 2))
-
+            self.rect.move_ip((width // 2), (height // 2))
             self.counter_left += 1
-        elif self.rect.collidelistall([[width, 0, height - 1, width]]):
 
-            # self.rect.move_ip(0 + (width // 2), 0 + width // 2)
-            self.x -= 1
+        elif self.rect.collidelistall([[width, 0, height - 1, width]]):
+            self.rect.move_ip(- (width // 2), - (height // 2))
             self.counter_right += 1
 
     def count_left(self):
@@ -125,7 +123,6 @@ while running:  # главный игровой цикл
         text_y = height // 3
         text_w = text_menu.get_width()
         text_h = text_menu.get_height()
-        print(text_h)
         screen.blit(text_menu, (text_x, text_y))
         pygame.draw.rect(screen, (0, 255, 0), (text_x - 10,
                                                text_y - 10,
