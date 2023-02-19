@@ -1,5 +1,5 @@
 import pygame
-from random import randint, randrange
+from random import randrange
 
 pygame.init()
 all_sprites = pygame.sprite.Group()
@@ -36,7 +36,7 @@ class Ball(pygame.sprite.Sprite):
             self.counter_left += 1
 
         elif self.rect.collidelistall([[width, 0, height - 1, width]]):
-            self.rect.move_ip(- (width // 2), - (height // 2))
+            self.rect.move_ip(- (width // 2), 0)
             self.counter_right += 1
 
     def count_left(self):
@@ -72,6 +72,8 @@ secondplatformcolor = pygame.Color('black')
 ballcolor = pygame.Color('red')
 font = pygame.font.Font(None, 70)
 text_play = font.render('PLAY', True, (100, 255, 100))
+pongfont = pygame.font.Font(None, 100)
+text_menu = pongfont.render('PONG', True, (255, 0, 0))
 
 first_blue = pygame.Rect((100, 400, 50, 50))
 first_red = pygame.Rect((100, 460, 50, 50))
@@ -117,14 +119,13 @@ while running:  # главный игровой цикл
                 secondplatformcolor = pygame.Color('blue')
 
         screen.fill(pygame.Color('black'))
-        text_menu = font.render('PONG', True, (100, 255, 100))
 
         text_x = width // 2 - text_menu.get_width() // 2
         text_y = height // 3
         text_w = text_menu.get_width()
         text_h = text_menu.get_height()
         screen.blit(text_menu, (text_x, text_y))
-        pygame.draw.rect(screen, (0, 255, 0), (text_x - 10,
+        pygame.draw.rect(screen, (255, 0, 0), (text_x - 10,
                                                text_y - 10,
                                                text_w + 20, text_h + 20), 1)
 
@@ -166,7 +167,6 @@ Border(5, height - 5, width - 5, height - 5)
 
 ball = Ball(10, ballcords[0], ballcords[1], counter_left, counter_right)
 
-fps = 144  # количество кадров в секунду
 clock = pygame.time.Clock()
 running = True
 while running:  # главный игровой цикл
