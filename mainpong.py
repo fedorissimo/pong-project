@@ -155,7 +155,7 @@ def main_menu():
             pygame.draw.rect(screen, (255, 0, 0), (text_x - 10,
                                                    text_y - 10,
                                                    text_w + 20, text_h + 20), 1)
-            # Кнопки выбора цвета
+            # Кнопки выбора цвета платформ
             pygame.draw.rect(screen, pygame.Color('blue'), (100, 400, 50, 50))
             pygame.draw.rect(screen, pygame.Color('red'), (100, 460, 50, 50))
             pygame.draw.rect(screen, pygame.Color('green'), (160, 400, 50, 50))
